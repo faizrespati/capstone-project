@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashFlow - Manajemen Keuangan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>💰 CashFlow</h1>
+            <p>Kelola keuangan pribadi dengan mudah</p>
+        </header>
+
+        <!-- Ringkasan Keuangan -->
+        <section class="summary">
+            <div class="summary-card income">
+                <h3>Pemasukan</h3>
+                <p id="total-income">Rp 0</p>
+            </div>
+            <div class="summary-card expense">
+                <h3>Pengeluaran</h3>
+                <p id="total-expense">Rp 0</p>
+            </div>
+            <div class="summary-card balance">
+                <h3>Saldo</h3>
+                <p id="total-balance">Rp 0</p>
+            </div>
+        </section>
+
+        <!-- Form Tambah Transaksi -->
+        <section class="transaction-form">
+            <h2>Tambah Transaksi</h2>
+            <form id="add-transaction-form">
+                <div class="form-group">
+                    <label for="tipe">Jenis Transaksi:</label>
+                    <select id="tipe" required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="pemasukan">Pemasukan</option>
+                        <option value="pengeluaran">Pengeluaran</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kategori_id">Kategori:</label>
+                    <select id="kategori_id" required>
+                        <option value="">Pilih Kategori</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal">Tanggal:</label>
+                    <input type="date" id="tanggal" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jumlah">Jumlah (Rp):</label>
+                    <input type="number" id="jumlah" min="0" step="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="keterangan">Keterangan:</label>
+                    <textarea id="keterangan" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Tambah Transaksi</button>
+            </form>
+        </section>
+
+        <!-- Filter dan Laporan -->
+        <section class="reports">
+            <h2>Laporan</h2>
+            <div class="filter-buttons">
+                <button onclick="loadLaporan('minggu')" class="btn-filter">Minggu Ini</button>
+                <button onclick="loadLaporan('bulan')" class="btn-filter">Bulan Ini</button>
+                <button onclick="loadLaporan('tahun')" class="btn-filter">Tahun Ini</button>
+            </div>
+
+            <!-- Chart Container -->
+            <div class="chart-container">
+                <canvas id="financeChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Daftar Transaksi -->
+        <section class="transaction-list">
+            <h2>Riwayat Transaksi</h2>
+            <div id="transaction-table-container">
+                <table id="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Kategori</th>
+                            <th>Keterangan</th>
+                            <th>Jumlah</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-body">
+                        <!-- Data akan diisi oleh JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal Edit -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Transaksi</h2>
+            <form id="edit-transaction-form">
+                <input type="hidden" id="edit-id">
+                <!-- Form edit sama seperti form tambah -->
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+</html>
